@@ -33,7 +33,7 @@ jobs:
   publish_app_windows:
     name: Publish Web App project for windows host
     needs: [build_core,build_repo]
-    runs-on: windows-latest
+    runs-on: linux-latest
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -41,9 +41,9 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Restore Packages
-      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
+      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp.sln
     - name: Publish project
-      run: dotnet publish -o './EmployeeConsultApp/EmployeeConsultApp/Publish/winx64' -c Release -r win-x64 --self-contained ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
+      run: dotnet publish -o './EmployeeConsultApp/EmployeeConsultApp/Publish/winx64' -c Release -r win-x64 --self-contained  ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj --no-restore
     - name: Replace endpoint value with repository variables
       uses: microsoft/variable-substitution@v1
       with:
@@ -66,9 +66,9 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Restore Packages
-      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
+      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp.sln
     - name: Publish project
-      run: dotnet publish -o './EmployeeConsultApp/EmployeeConsultApp/Publish/linux64' -c Release -r linux-x64 --self-contained ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
+      run: dotnet publish -o './EmployeeConsultApp/EmployeeConsultApp/Publish/linux64' -c Release -r linux-x64 --self-contained ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj --no-restore
     - name: Replace endpoint value with repository variables
       uses: microsoft/variable-substitution@v1
       with:
