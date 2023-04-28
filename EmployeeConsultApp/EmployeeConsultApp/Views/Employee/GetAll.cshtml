@@ -1,0 +1,16 @@
+@model IEnumerable<EmployeeViewModel>
+@{
+    ViewBag.Title = "Employees View";
+    if (Model is null)
+    {
+        <div class="text-center">Loading...</div>
+    }
+    else if (!Model.Any())
+    {
+        <div class="text-center">There is no Employee information to display</div>
+    }
+    else
+    {
+        await Html.RenderPartialAsync("GetEmployeeList", Model);
+    }
+}

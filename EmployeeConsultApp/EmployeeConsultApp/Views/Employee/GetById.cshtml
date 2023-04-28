@@ -1,0 +1,118 @@
+@model EmployeeViewModel
+
+@{
+    ViewBag.Title = "Search Employee";
+    IEnumerable<EmployeeViewModel> model = ViewBag.AllEmployeeData;
+}
+
+<div class="row">
+    <div class="text-left">
+        <h3>Search employee by Id</h3>
+    </div>
+</div>
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-4">
+            @Html.LabelFor(x => x.Id)
+        </div>
+        <div class="col-8">
+            <div class="form-group">
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.Id,
+                        new
+                        {
+                            @class = "form-control text-right col-7",
+                            placeholder = "Enter the employee Id",
+                            requried = "required"
+                        })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                    <input class="button form-control" id="submit" type="submit" value="Search"/>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br/>
+@if (ViewBag.Failed)
+{
+    <div class="row">
+        <div class="col-12">
+            <span class="text-center text-black-50">Employee not found</span>
+        </div>
+    </div>
+
+    if (model.Any())
+        await Html.RenderPartialAsync("GetEmployeeList", model);
+}
+else
+{
+    if (Model is null)
+    {
+        if (model.Any())
+            await Html.RenderPartialAsync("GetEmployeeList", model);
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-2 col-sm-12">
+                <img style="width: 216px;height: 216px" src="@Url.Content(Model.ProfileImage)" alt="Employee profile photo"/>
+            </div>
+            <div class="col-auto col-sm-12">
+                <table class="table table-bordered table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(x => x.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.Age)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.Salary)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.AnnualSalary)
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span class="text-center">
+                                @Html.DisplayFor(x => x.Id)
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="text-center">
+                                @Html.DisplayFor(x => x.Name)
+                            </span>
+                        </td>
+                        <td>
+                            <span class="text-center">
+                                @Html.DisplayFor(x => x.Age)
+                            </span>
+                        </td>
+                        <td>
+                            <span class="text-right">
+                                @Html.DisplayFor(x => x.Salary)
+                            </span>
+                        </td>
+                        <td>
+                            <span class="text-right">
+                                @Html.DisplayFor(x => x.AnnualSalary)
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}
