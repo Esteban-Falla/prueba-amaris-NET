@@ -36,7 +36,7 @@ jobs:
   publish_app_windows:
     name: Publish Web App project for windows host
     needs: [build_core,build_repo]
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -47,20 +47,14 @@ jobs:
       run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Publish project
       run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/winx64 -c Release -r win-x64 --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp
-  replace_endpoints_windows:
-    name: Replace endpoint value with repository variables
-    needs: publish_app_windows
-    steps:
-    - uses: microsoft/variable-substitution@v1
+    - name: Replace endpoint value with repository variables
+      uses: microsoft/variable-substitution@v1
       with:
         files: '${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64/appsettings.json'
       env:
         Endpoints.Employee: ${{vars.STAGING_EMPLOYEE_ENDPOINT}}
-  upload_win_artifact:
-    name: Upload windows Artifact
-    needs: replace_endpoints_windows
-    steps:
-    - uses: actions/upload-artifact@v3
+    - name: Upload windows Artifact
+      uses: actions/upload-artifact@v3
       with:
         name: EmployeeConsultApp_Win64
         path: ${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64
@@ -78,20 +72,14 @@ jobs:
       run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Publish project
       run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux -c Release --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp
-  replace_endpoints_linux:
-    name: Replace endpoint value with repository variables
-    needs: publish_app_linux
-    steps:
-    - uses: microsoft/variable-substitution@v1
+    - name: Replace endpoint value with repository variables
+      uses: microsoft/variable-substitution@v1
       with:
         files: '${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux/appsettings.json'
       env:
         Endpoints.Employee: ${{ vars.STAGING_EMPLOYEE_ENDPOINT }}
-  upload_linux_artifact:
-    name: Upload windows Artifact
-    needs: replace_endpoints_linux
-    steps:
-    - uses: actions/upload-artifact@v3
+    - name: Upload windows Artifact
+      uses: actions/upload-artifact@v3
       with:
         name: EmployeeConsultApp_Win64
         path: ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux
