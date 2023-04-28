@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeConsultApp", "Emplo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeConsultAppTests", "EmployeeConsultAppTests\EmployeeConsultAppTests.csproj", "{795F0D8E-52E1-4770-B8DB-F08D07C78D76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeConsultApp.Core", "EmployeeConsultApp.Core\EmployeeConsultApp.Core.csproj", "{5FCAF86E-8156-4CA6-AA5C-0DA6D75C63F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeConsultApp.Repository", "EmployeeConsultApp.Repository\EmployeeConsultApp.Repository.csproj", "{E87AA289-DAE6-4337-9C4D-4FD246046BB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{795F0D8E-52E1-4770-B8DB-F08D07C78D76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{795F0D8E-52E1-4770-B8DB-F08D07C78D76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{795F0D8E-52E1-4770-B8DB-F08D07C78D76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FCAF86E-8156-4CA6-AA5C-0DA6D75C63F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCAF86E-8156-4CA6-AA5C-0DA6D75C63F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCAF86E-8156-4CA6-AA5C-0DA6D75C63F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FCAF86E-8156-4CA6-AA5C-0DA6D75C63F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E87AA289-DAE6-4337-9C4D-4FD246046BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E87AA289-DAE6-4337-9C4D-4FD246046BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E87AA289-DAE6-4337-9C4D-4FD246046BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E87AA289-DAE6-4337-9C4D-4FD246046BB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

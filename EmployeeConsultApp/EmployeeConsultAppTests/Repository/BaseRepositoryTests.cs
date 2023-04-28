@@ -1,6 +1,6 @@
-using EmployeeConsultApp.Interfaces;
-using EmployeeConsultApp.Models;
-using EmployeeConsultApp.Repositories;
+using EmployeeConsultApp.Core.Interfaces;
+using EmployeeConsultApp.Core.Models;
+using EmployeeConsultApp.Core.Repository;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;

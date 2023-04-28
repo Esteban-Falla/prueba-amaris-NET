@@ -1,18 +1,16 @@
-using System;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using EmployeeConsultApp.Interfaces;
-using EmployeeConsultApp.Models;
+using EmployeeConsultApp.Core.Interfaces;
+using EmployeeConsultApp.Core.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace EmployeeConsultApp.Repositories;
+namespace EmployeeConsultApp.Core.Repository;
 
 public abstract class BaseRepository<Entity> : IRepository<Entity>
     where Entity : IEntity
 {
-    private protected readonly Endpoint<Entity> _endpoint;
-    private protected readonly ILogger<IRepository<Entity>> _logger;
+    protected readonly Endpoint<Entity> _endpoint;
+    protected readonly ILogger<IRepository<Entity>> _logger;
 
     protected BaseRepository(IOptions<Endpoint<Entity>> endpoint, ILogger<IRepository<Entity>> logger)
     {

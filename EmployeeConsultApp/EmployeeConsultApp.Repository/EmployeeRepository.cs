@@ -1,11 +1,11 @@
-using System;
 using System.Text.Json;
-using EmployeeConsultApp.Interfaces;
-using EmployeeConsultApp.Models;
+using EmployeeConsultApp.Core.Interfaces;
+using EmployeeConsultApp.Core.Models;
+using EmployeeConsultApp.Core.Repository;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace EmployeeConsultApp.Repositories;
+namespace EmployeeConsultApp.Repository;
 
 public class EmployeeRepository : BaseRepository<Employee>
 {
@@ -30,7 +30,7 @@ public class EmployeeRepository : BaseRepository<Employee>
         }
         catch (Exception e)
         {
-            _logger.LogError(e.Message);
+            _logger.LogError(null, string.Empty, e);
             throw;
         }
 
@@ -40,10 +40,10 @@ public class EmployeeRepository : BaseRepository<Employee>
     public override async Task<RequestMessage<Employee>> GetByIdAsync(int id)
     {
         _logger.LogInformation($"Method called: {nameof(GetByIdAsync)}");
-        using var client = GetClient($"{_endpoint.Value}");
+        using var client = GetClient($"{_endpoint.Value}/{id}");
         try
         {
-            var response = await client.GetAsync($"{id}");
+            var response = await client.GetAsync("");
             if (response.IsSuccessStatusCode)
             {
                 _logger.LogInformation($"{nameof(GetByIdAsync)} call success with status: {response.StatusCode}");
@@ -53,7 +53,7 @@ public class EmployeeRepository : BaseRepository<Employee>
         }
         catch (Exception e)
         {
-            _logger.LogError(e.Message);
+            _logger.LogError(null, string.Empty, e);
             throw;
         }
 

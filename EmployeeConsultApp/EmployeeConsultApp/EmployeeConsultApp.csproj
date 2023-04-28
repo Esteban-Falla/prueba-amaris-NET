@@ -7,4 +7,11 @@
         <PackageReference Include="Microsoft.Identity.Web" Version="1.*"/>
         <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.*"/>
     </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Interfaces"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\EmployeeConsultApp.Core\EmployeeConsultApp.Core.csproj"/>
+        <ProjectReference Include="..\EmployeeConsultApp.Repository\EmployeeConsultApp.Repository.csproj"/>
+    </ItemGroup>
 </Project>

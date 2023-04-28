@@ -16,17 +16,20 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        _logger.LogInformation($"{nameof(HomeController)}:{nameof(Index)}");
+        return RedirectToAction("GetAll", "Employee");
     }
 
     public IActionResult Privacy()
     {
+        _logger.LogInformation($"{nameof(HomeController)}:{nameof(Privacy)}");
         return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
+        _logger.LogWarning($"{nameof(EmployeeController)}:{nameof(Error)}");
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

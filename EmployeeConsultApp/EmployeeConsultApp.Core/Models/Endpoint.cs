@@ -1,6 +1,6 @@
-using EmployeeConsultApp.Interfaces;
+using EmployeeConsultApp.Core.Interfaces;
 
-namespace EmployeeConsultApp.Models;
+namespace EmployeeConsultApp.Core.Models;
 
 public class Endpoint<T>
     where T : IEntity

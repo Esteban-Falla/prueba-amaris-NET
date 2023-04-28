@@ -1,6 +1,6 @@
-using EmployeeConsultApp.Models;
+using EmployeeConsultApp.Core.Models;
 
-namespace EmployeeConsultApp.Interfaces;
+namespace EmployeeConsultApp.Core.Interfaces;
 
 public interface IRepository<Entity>
     where Entity : IEntity

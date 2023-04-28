@@ -1,6 +1,6 @@
-using EmployeeConsultApp.Interfaces;
-using EmployeeConsultApp.Models;
-using EmployeeConsultApp.Repositories;
+using EmployeeConsultApp.Core.Interfaces;
+using EmployeeConsultApp.Core.Models;
+using EmployeeConsultApp.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
