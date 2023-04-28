@@ -43,7 +43,7 @@ jobs:
     - name: Restore Packages
       run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Publish project
-      run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/winx64 -c Release -r win-x64 --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
+      run: dotnet publish -o '${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/winx64' -c Release -r win-x64 --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Replace endpoint value with repository variables
       uses: microsoft/variable-substitution@v1
       with:
@@ -54,29 +54,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: EmployeeConsultApp_Win64
-        path: ${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64
-  publish_app_linux:
-    name: Publish Web App project for linux host
-    needs: [build_core,build_repo]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Restore Packages
-      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
-    - name: Publish project
-      run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux -c Release -r linux-x64 --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
-    - name: Replace endpoint value with repository variables
-      uses: microsoft/variable-substitution@v1
-      with:
-        files: '${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux/appsettings.json'
-      env:
-        Endpoints.Employee: ${{ vars.STAGING_EMPLOYEE_ENDPOINT }}
-    - name: Upload windows Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: EmployeeConsultApp_Win64
-        path: ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux
+        path: '${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64'
