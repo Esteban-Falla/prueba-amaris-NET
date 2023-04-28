@@ -59,10 +59,11 @@ jobs:
   upload_win_artifact:
     name: Upload windows Artifact
     needs: replace_endpoints_windows
-    uses: actions/upload-artifact@v3
-    with:
-      name: EmployeeConsultApp_Win64
-      path: ${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64
+    steps:
+      - uses: actions/upload-artifact@v3
+        with:
+          name: EmployeeConsultApp_Win64
+          path: ${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64
   publish_app_linux:
     name: Publish Web App project for linux host
     needs: [build_core,build_repo]
@@ -89,7 +90,8 @@ jobs:
   upload_linux_artifact:
     name: Upload windows Artifact
     needs: replace_endpoints_linux
-    uses: actions/upload-artifact@v3
-    with:
-      name: EmployeeConsultApp_Win64
-      path: ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux
+    steps:
+      - uses: actions/upload-artifact@v3
+        with:
+          name: EmployeeConsultApp_Win64
+          path: ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux
