@@ -51,44 +51,43 @@ jobs:
     name: Replace endpoint value with repository variables
     needs: publish_app_windows
     uses: microsoft/variable-substitution@v1
-      with:
-        files: '${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/winx64/appsettings.json'
-      env:
-        Endpoints.Employee: ${{ vars.STAGING_EMPLOYEE_ENDPOINT }}
+    with:
+      files: '${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64/appsettings.json'
+    env:
+      Endpoints.Employee: ${{vars.STAGING_EMPLOYEE_ENDPOINT}}
   upload_win_artifact:
     name: Upload windows Artifact
     needs: replace_endpoints_windows
     uses: actions/upload-artifact@v3
-      with:
-        name: EmployeeConsultApp_Win64
-        path: ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/winx64
+    with:
+      name: EmployeeConsultApp_Win64
+      path: ${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64
   publish_app_linux:
     name: Publish Web App project for linux host
     needs: [build_core,build_repo]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Restore Packages
-      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
-    - name: Publish project
-      run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux -c Release --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Restore Packages
+        run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
+      - name: Publish project
+        run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux -c Release --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp
   replace_endpoints_linux:
     name: Replace endpoint value with repository variables
     needs: publish_app_linux
     uses: microsoft/variable-substitution@v1
-      with:
-        files: '${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux/appsettings.json'
-      env:
-        Endpoints.Employee: ${{ vars.STAGING_EMPLOYEE_ENDPOINT }}
+    with:
+      files: '${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux/appsettings.json'
+    env:
+      Endpoints.Employee: ${{ vars.STAGING_EMPLOYEE_ENDPOINT }}
   upload_linux_artifact:
     name: Upload windows Artifact
     needs: replace_endpoints_linux
     uses: actions/upload-artifact@v3
-      with:
-        name: EmployeeConsultApp_Win64
-        path: ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux
-  
+    with:
+      name: EmployeeConsultApp_Win64
+      path: ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux

@@ -60,6 +60,5 @@ jobs:
       run: dotnet restore ./EmployeeConsultApp/EmployeeConsultAppTests/EmployeeConsultAppTests.csproj
     - name: Build project
       run: dotnet build ./EmployeeConsultApp/EmployeeConsultAppTests/EmployeeConsultAppTests.csproj --no-restore
-  run-unit-tests:
-    name: Run Unit Tests
-    run: dotnet test ./EmployeeConsultApp/EmployeeConsultAppTests --no-build --verbosity normal
+    - name: Run Unit Tests
+      run: dotnet test ./EmployeeConsultApp/EmployeeConsultAppTests --no-build --verbosity normal
