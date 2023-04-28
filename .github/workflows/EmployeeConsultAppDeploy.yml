@@ -50,11 +50,12 @@ jobs:
   replace_endpoints_windows:
     name: Replace endpoint value with repository variables
     needs: publish_app_windows
-    uses: microsoft/variable-substitution@v1
-    with:
-      files: '${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64/appsettings.json'
-    env:
-      Endpoints.Employee: ${{vars.STAGING_EMPLOYEE_ENDPOINT}}
+    steps:
+      - uses: microsoft/variable-substitution@v1
+        with:
+          files: '${{env.DOTNET_ROOT}}/EmployeeConsultApp/Publish/winx64/appsettings.json'
+        env:
+          Endpoints.Employee: ${{vars.STAGING_EMPLOYEE_ENDPOINT}}
   upload_win_artifact:
     name: Upload windows Artifact
     needs: replace_endpoints_windows
@@ -79,11 +80,12 @@ jobs:
   replace_endpoints_linux:
     name: Replace endpoint value with repository variables
     needs: publish_app_linux
-    uses: microsoft/variable-substitution@v1
-    with:
-      files: '${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux/appsettings.json'
-    env:
-      Endpoints.Employee: ${{ vars.STAGING_EMPLOYEE_ENDPOINT }}
+    steps:
+      - uses: microsoft/variable-substitution@v1
+        with:
+          files: '${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux/appsettings.json'
+        env:
+          Endpoints.Employee: ${{ vars.STAGING_EMPLOYEE_ENDPOINT }}
   upload_linux_artifact:
     name: Upload windows Artifact
     needs: replace_endpoints_linux
