@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DotNETDeveloperTest.Data;
+using EmployeesSite.Data;
+using EmployeesSite.Models;
 
-namespace DotNETDeveloperTest
+namespace EmployeesSite
 {
     public class Startup
     {
@@ -28,7 +29,9 @@ namespace DotNETDeveloperTest
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            // Add here DI for service
+            services.Configure<Endpoint<Employee>>(Configuration.GetSection("Endpoints:Employee"));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

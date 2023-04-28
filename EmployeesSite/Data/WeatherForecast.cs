@@ -1,6 +1,6 @@
 using System;
 
-namespace DotNETDeveloperTest.Data
+namespace EmployeesSite.Data
 {
     public class WeatherForecast
     {
