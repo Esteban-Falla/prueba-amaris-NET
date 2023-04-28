@@ -27,6 +27,9 @@ public class EmployeeRepository : BaseRepository<Employee>
                 var result = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<RequestMessage<Employee>>(result);
             }
+            
+            _logger.LogWarning(
+                $"{nameof(GetAllAsync)}: Could not find user info. Request status: {response?.StatusCode}");
         }
         catch (Exception e)
         {
@@ -50,6 +53,9 @@ public class EmployeeRepository : BaseRepository<Employee>
                 var result = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<RequestMessage<Employee>>(result);
             }
+
+            _logger.LogWarning(
+                $"{nameof(GetByIdAsync)}: Could not find user with id: {id}. Request status: {response?.StatusCode}");
         }
         catch (Exception e)
         {

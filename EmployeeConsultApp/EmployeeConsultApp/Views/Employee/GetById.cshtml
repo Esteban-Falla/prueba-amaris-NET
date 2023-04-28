@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Search Employee";
+    IEnumerable<EmployeeViewModel> model = ViewBag.AllEmployeeData;
 }
 
 <div class="row">
@@ -42,10 +43,18 @@
             <span class="text-center text-black-50">Employee not found</span>
         </div>
     </div>
+
+    if (model.Any())
+        await Html.RenderPartialAsync("GetEmployeeList", model);
 }
 else
 {
-    if (Model != null)
+    if (Model is null)
+    {
+        if (model.Any())
+            await Html.RenderPartialAsync("GetEmployeeList", model);
+    }
+    else
     {
         <div class="row">
             <div class="col-2 col-sm-12">
@@ -66,6 +75,9 @@ else
                         </th>
                         <th>
                             @Html.DisplayNameFor(x => x.Salary)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.AnnualSalary)
                         </th>
                     </tr>
                     </thead>
@@ -90,6 +102,11 @@ else
                         <td>
                             <span class="text-right">
                                 @Html.DisplayFor(x => x.Salary)
+                            </span>
+                        </td>
+                        <td>
+                            <span class="text-right">
+                                @Html.DisplayFor(x => x.AnnualSalary)
                             </span>
                         </td>
                     </tr>

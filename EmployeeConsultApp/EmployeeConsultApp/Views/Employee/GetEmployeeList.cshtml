@@ -1,0 +1,52 @@
+@model IEnumerable<EmployeeViewModel>
+<h2>Employees List</h2>
+<div>
+    <table class="table table-bordered table-responsive table-hover">
+        <thead>
+        <tr>
+            <th>@Html.DisplayNameForInnerType((EmployeeViewModel e) => e.ProfileImage)</th>
+            <th>@Html.DisplayNameForInnerType((EmployeeViewModel e) => e.Id)</th>
+            <th>@Html.DisplayNameForInnerType((EmployeeViewModel e) => e.Name)</th>
+            <th>@Html.DisplayNameForInnerType((EmployeeViewModel e) => e.Age)</th>
+            <th>@Html.DisplayNameForInnerType((EmployeeViewModel e) => e.Salary)</th>
+            <th>@Html.DisplayNameForInnerType((EmployeeViewModel e) => e.AnnualSalary)</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr class="table-hover" onclick="window.location='@Url.Content($"{Url.Action("GetById", "Employee")}/{employee.Id}")'">
+                <td>
+                    <img style="width: 216px;height: 216px" src="@Url.Content(employee.ProfileImage)" alt="Employee-@employee.Id's profile picture"/>
+                </td>
+                <td>
+                    <span>
+                        @Html.DisplayFor(x => employee.Id)
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        @Html.DisplayFor(x => employee.Name)
+                    </span>
+                </td>
+                <td>
+                    <span class="text-center">
+                        @Html.DisplayFor(x => employee.Age)
+                    </span>
+                </td>
+                <td>
+                    <span class="text-right">
+                        @Html.DisplayFor(x => employee.Salary)
+                    </span>
+                </td>
+                <td>
+                    <span class="text-right">
+                        @Html.DisplayFor(x => employee.AnnualSalary)
+                    </span>
+                </td>
+            </tr>
+        }
+        </tbody>
+
+    </table>
+</div>

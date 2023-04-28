@@ -24,10 +24,28 @@ public class EmployeeController : Controller
     }
 
     [HttpGet("/")]
-    [Produces("application/json", Type = typeof(IEnumerable<EmployeeViewModel>))]
     public async Task<IActionResult> GetAll()
     {
         _logger.LogInformation($"{nameof(EmployeeController)}:{nameof(GetAll)}");
+
+        IEnumerable<EmployeeViewModel> result = null;
+
+        try
+        {
+            result = await GetEmployeeList();
+        }
+        catch
+        {
+            return Error();
+        }
+
+        return View(result);
+    }
+
+    [Produces("application/json", Type = typeof(IEnumerable<EmployeeViewModel>))]
+    public async Task<IEnumerable<EmployeeViewModel>> GetEmployeeList()
+    {
+        _logger.LogInformation($"{nameof(EmployeeController)}:{nameof(GetEmployeeList)}");
 
         try
         {
@@ -35,17 +53,17 @@ public class EmployeeController : Controller
 
             if (!(result != null) || result.Status != "success")
             {
-                _logger.LogWarning($"Problem finding employees, request responded with: {result?.Message}");
-                return View(Array.Empty<EmployeeViewModel>());
+                _logger.LogWarning($"Problem finding employees, request responded with status: {result?.Status} and message: {result?.Message}");
+                return Array.Empty<EmployeeViewModel>();
             }
 
-            return View(result.Data
-                .Select(EmployeeViewModelConverter.FromCoreEmployee));
+            return result.Data
+                .Select(EmployeeViewModelConverter.FromCoreEmployee);
         }
         catch (Exception e)
         {
             _logger.LogError(null, string.Empty, e);
-            return Error();
+            throw;
         }
     }
 
@@ -56,6 +74,7 @@ public class EmployeeController : Controller
     {
         _logger.LogInformation($"{nameof(EmployeeController)}:{nameof(GetById)} with Id: {Id}");
         ViewBag.Failed = false;
+        ViewBag.AllEmployeeData = await GetEmployeeList();
         try
         {
             var result = await _repository.GetByIdAsync(Id);
@@ -63,7 +82,7 @@ public class EmployeeController : Controller
             if (!(result != null) || result.Status != "success")
             {
                 _logger.LogWarning(
-                    $"Problem finding employee with id: {Id}, request responded with: {result?.Message}");
+                    $"Problem finding employee with id: {Id}, request responded with status: {result?.Status} and message: {result?.Message}");
                 ViewBag.Failed = true;
                 return View();
             }
@@ -85,6 +104,7 @@ public class EmployeeController : Controller
     {
         _logger.LogInformation($"{nameof(EmployeeController)}:{nameof(GetById)} no Id");
         ViewBag.Failed = false;
+        ViewBag.AllEmployeeData = await GetEmployeeList();
         return View("GetById", null);
     }
 

@@ -19,6 +19,10 @@ public class EmployeeViewModel
     [Required]
     public ulong Salary { get; init; }
 
+    [Display(Name = "Annual Employee Salary", ShortName = "AnnualSalary")]
+    [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+    public ulong AnnualSalary => Salary * 12;
+
     [Display(Name = "Age", ShortName = "Age")]
     [Range(0, ushort.MaxValue)]
     public ushort Age { get; init; }
