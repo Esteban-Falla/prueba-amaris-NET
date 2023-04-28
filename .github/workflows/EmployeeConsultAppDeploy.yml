@@ -1,12 +1,15 @@
 ---
 name: Employee Consult App deployment Pipeline
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Employee Consult App CI Pipeline"]
+    branches: [main]
+    types:
+      - completed
   workflow_dispatch:
 jobs:
   build_core:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Build Core project
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +49,7 @@ jobs:
     - name: Restore Packages
       run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Publish project
-      run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/winx64 -c Release -r win-x64 --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp
+      run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/winx64 -c Release -r win-x64 --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Replace endpoint value with repository variables
       uses: microsoft/variable-substitution@v1
       with:
@@ -71,7 +74,7 @@ jobs:
     - name: Restore Packages
       run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Publish project
-      run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux -c Release --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp
+      run: dotnet publish -o ${{ env.DOTNET_ROOT }}/EmployeeConsultApp/Publish/linux -c Release -r linux-x64 --self-contained --no-restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Replace endpoint value with repository variables
       uses: microsoft/variable-substitution@v1
       with:
