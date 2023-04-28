@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 jobs:
   build_core:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Build Core project
     runs-on: ubuntu-latest
     steps:
