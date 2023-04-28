@@ -1,0 +1,65 @@
+---
+name: Employee Consult App CI Pipeline
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build_core:
+    name: Build Core project
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore Packages
+      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp.Core/EmployeeConsultApp.Core.csproj
+    - name: Build project
+      run: dotnet build ./EmployeeConsultApp/EmployeeConsultApp.Core/EmployeeConsultApp.Core.csproj --no-restore
+  build_repo:
+    name: Build Repository project
+    needs: build_core
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore Packages
+      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp.Repository/EmployeeConsultApp.Repository.csproj
+    - name: Build project
+      run: dotnet build ./EmployeeConsultApp/EmployeeConsultApp.Repository/EmployeeConsultApp.Repository.csproj --no-restore
+  build_app:
+    name: Build Web App project
+    needs: [build_core,build_repo]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore Packages
+      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
+    - name: Build project
+      run: dotnet build ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj --no-restore
+  build_tests:
+    name: Build Tests project
+    needs: [build_core,build_repo,build_app]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore Packages
+      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultAppTests/EmployeeConsultAppTests.csproj
+    - name: Build project
+      run: dotnet build ./EmployeeConsultApp/EmployeeConsultAppTests/EmployeeConsultAppTests.csproj --no-restore
+  run-unit-tests:
+    name: Run Unit Tests
+    run: dotnet test ./EmployeeConsultApp/EmployeeConsultAppTests --no-build --verbosity normal
