@@ -43,7 +43,7 @@ jobs:
     - name: Restore Packages
       run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp.sln
     - name: Publish project
-      run: dotnet publish -o './EmployeeConsultApp/EmployeeConsultApp/Publish/winx64' -c Release -r win-x64 --self-contained  ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj --no-restore
+      run: dotnet publish -o './EmployeeConsultApp/EmployeeConsultApp/Publish/winx64' -c Release -r win-x64  ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Replace endpoint value with repository variables
       uses: microsoft/variable-substitution@v1
       with:
@@ -68,7 +68,7 @@ jobs:
     - name: Restore Packages
       run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp.sln
     - name: Publish project
-      run: dotnet publish -o './EmployeeConsultApp/EmployeeConsultApp/Publish/linux64' -c Release -r linux-x64 --self-contained ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj --no-restore
+      run: dotnet publish -o './EmployeeConsultApp/EmployeeConsultApp/Publish/linux64' -c Release -r linux-x64 ./EmployeeConsultApp/EmployeeConsultApp/EmployeeConsultApp.csproj
     - name: Replace endpoint value with repository variables
       uses: microsoft/variable-substitution@v1
       with:
