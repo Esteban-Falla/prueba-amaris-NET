@@ -36,7 +36,7 @@ public class EmployeeController : Controller
         }
         catch
         {
-            return Error();
+            return RedirectToAction("Error");
         }
 
         return View(result);
@@ -62,7 +62,7 @@ public class EmployeeController : Controller
         }
         catch (Exception e)
         {
-            _logger.LogError(null, string.Empty, e);
+            _logger.LogError(exception:e, string.Empty);
             throw;
         }
     }
@@ -93,8 +93,8 @@ public class EmployeeController : Controller
         }
         catch (Exception e)
         {
-            _logger.LogError(null, string.Empty, e);
-            return Error();
+            _logger.LogError(exception:e,String.Empty);
+            return RedirectToAction("Error");
         }
     }
 
