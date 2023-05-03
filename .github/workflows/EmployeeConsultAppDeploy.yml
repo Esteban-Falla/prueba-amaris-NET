@@ -3,37 +3,9 @@ name: Employee Consult App deployment Pipeline
 on:
   workflow_dispatch:
 jobs:
-  build_core:
-    name: Build Core project
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Restore Packages
-      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp.Core/EmployeeConsultApp.Core.csproj
-    - name: Build project
-      run: dotnet build --configuration Release ./EmployeeConsultApp/EmployeeConsultApp.Core/EmployeeConsultApp.Core.csproj --no-restore
-  build_repo:
-    name: Build Repository project
-    needs: build_core
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Restore Packages
-      run: dotnet restore ./EmployeeConsultApp/EmployeeConsultApp.Repository/EmployeeConsultApp.Repository.csproj
-    - name: Build project
-      run: dotnet build --configuration Release ./EmployeeConsultApp/EmployeeConsultApp.Repository/EmployeeConsultApp.Repository.csproj --no-restore
   publish_app_windows:
     name: Publish Web App project for windows host
-    needs: [build_core,build_repo]
-    runs-on: linux-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -57,7 +29,6 @@ jobs:
         path: './EmployeeConsultApp/EmployeeConsultApp/Publish/winx64'
   publish_app_linux:
     name: Publish Web App project for linux host
-    needs: [build_core,build_repo]
     runs-on: linux-latest
     steps:
     - uses: actions/checkout@v3
